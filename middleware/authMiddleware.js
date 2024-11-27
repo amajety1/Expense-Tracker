@@ -5,7 +5,9 @@ const authMiddleware = async(req, res, next)=>{
     if(!token) return res.statue(401).json({message: 'Unauthorized'});
     try{
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    
     req.user = decoded;
+    req.body.user = decoded.id; 
     next();
     }
     catch(err){
